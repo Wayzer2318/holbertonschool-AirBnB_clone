@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+""" test base model """
 import unittest
 import datetime
 from models.base_model import BaseModel
 
 
 class TestModelBase(unittest.TestCase):
+    """ test model base """
     def setUp(self):
         self.instance = BaseModel()
 
