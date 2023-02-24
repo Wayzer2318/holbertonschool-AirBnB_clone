@@ -7,13 +7,9 @@ from models.review import Review
 class ReviewTest(unittest.TestCase):
     """ test for state """
 
-    def test_name_is_str(self):
-        instance = Review()
-        self.assertEqual(instance.name, "")
-
     def test_instance(self):
         instance = Review()
-        self.assertIsInstance(instance, State)
+        self.assertIsInstance(instance, Review)
 
     def test_id(self):
         instance = Review()
