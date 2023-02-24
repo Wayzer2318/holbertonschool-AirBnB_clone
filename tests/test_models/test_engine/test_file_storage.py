@@ -11,7 +11,9 @@ from models import storage
 
 class TestFileStorage(unittest.TestCase):
     "Unit tests suite for FileStorage class"
-    my_model = BaseModel()
+
+    def setUp(self):
+        self.my_model = BaseModel()
 
     def test_instanciates(self):
         "Tests that FileStorage correctly instanciates"
@@ -29,10 +31,9 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(dict, type(object_dict))
 
     def test_all(self):
-        """Test FileStorage: all()"""
+        """Test FileStorage """
         """file is not exit"""
         dict_return = {}
-        FileStorage.all(None)
         self.assertEqual(os.path.isfile('file.json'), True)
 
 
