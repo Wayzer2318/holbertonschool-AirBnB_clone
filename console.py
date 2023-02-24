@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ create instance """
         if not args:
-            print("** class name messing **")
+            print("** class name missing **")
         else:
             if args in HBNBCommand.class_dict.keys():
                 new_instance = HBNBCommand.class_dict[args]()
