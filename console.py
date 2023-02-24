@@ -1,11 +1,17 @@
 #!/usr/bin/python3
 """ airbnb clone console program """
+import sys
 import cmd
 import models
+
+
+from models.base_model import BaseMods
 from models.user import User
-from models.base_model import BaseModel
-import sys
-import shlex
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -63,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         """ Update an instance """
-        strings = shlex.split(args)
+        strings = args.split()
         models.storage.reload()
         new_dict = models.storage.all()
         if len(strings) == 0:
