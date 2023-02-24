@@ -29,6 +29,10 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         self.assertIsInstance(storage, FileStorage)
 
+    def test_path(self):
+        """ test __filepath is valid """
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+
     def test_new(self):
         """ test new """
         self.my_storage.new(self.my_model)
@@ -52,7 +56,7 @@ class TestFileStorage(unittest.TestCase):
         s.reload()
         kx = s.all().keys()
         ky = self.my_storage.all().keys()
-        self.assertTrue(kx, ky)
+        self.assertTrue(kx == ky)
 
     def test_content_type(self):
         """ test content type """
