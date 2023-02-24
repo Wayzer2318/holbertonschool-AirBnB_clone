@@ -12,12 +12,12 @@ from models.engine.file_storage import FileStorage
 class TestFileStorage(unittest.TestCase):
     """ test for file storage """
 
-    def setup(self):
+    def setUp(self):
         """ set up """
         self.my_model = BaseModel()
         self.my_storage = FileStorage()
 
-    def tear_down(self):
+    def tearDown(self):
         """ tear down method """
         if os.path.exists("file.json"):
             os.remove("file.json")
