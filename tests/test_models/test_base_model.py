@@ -11,6 +11,13 @@ class TestModelBase(unittest.TestCase):
     def setUp(self):
         self.instance = BaseModel()
 
+    def test_to_dict(self):
+        v = self.instance.to_dict()
+        self.assertEqual(type(v) == dict)
+
+        self.assertTrue('__class__' in v)
+        self.assertEqual(v['__class__'], v.__class__.__name__)
+
     def test_id_is_str(self):
         self.assertEqual(str(type(self.instance.id)), "<class 'str'>")
 
