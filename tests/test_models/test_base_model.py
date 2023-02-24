@@ -19,7 +19,8 @@ class TestModelBase(unittest.TestCase):
         self.assertEqual(v['__class__'], self.instance.__class__.__name__)
 
     def test_id_is_str(self):
-        self.assertEqual(str(type(self.instance.id)), "<class 'str'>")
+        self.assertEqual(type(self.instance.id), str)
+        self.assertEqual(self.instance.id.count('-'), 4)
 
     def test_created_is_dtobj(self):
         strtst = "<class 'datetime.datetime'>"
