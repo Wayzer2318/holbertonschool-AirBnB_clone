@@ -68,4 +68,4 @@ class TestFileStorage(unittest.TestCase):
 
         self.assertIsInstance(content, dict)
 
-        self.assertTrue(os.path.exists(FileStorage._FileStore__file_path))
+        self.assertTrue(os.path.exists(FileStorage.__file_path))
