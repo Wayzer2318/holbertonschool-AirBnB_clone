@@ -18,13 +18,13 @@ class HBNBCommand(cmd.Cmd):
     """ HBNB command class """
     prompt = '(hbnb) '
     class_dict = {
-	"BaseModel": BaseModel,
-	"User": User,
-	"Place": Place,
-	"State": State,
-	"City": City,
-	"Amenity": Amenity,
-	"Review": Review,
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Review": Review,
     }
 
     def do_create(self, args):
