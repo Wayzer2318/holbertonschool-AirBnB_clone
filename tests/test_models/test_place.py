@@ -47,7 +47,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(p.price_by_night, 0)
         self.assertEqual(p.latitude, 0.0)
         self.assertEqual(p.longitude, 0.0)
-        self.assertEqual(p.amenity_ids, [""])
+        self.assertEqual(p.amenity_ids, [])
         self.assertEqual(len(p.amenity_ids), 1)
 
         b = City()

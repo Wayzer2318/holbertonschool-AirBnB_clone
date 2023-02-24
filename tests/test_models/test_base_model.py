@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 class TestModelBase(unittest.TestCase):
     """ test model base """
+
     def setUp(self):
         self.instance = BaseModel()
 
@@ -22,5 +23,6 @@ class TestModelBase(unittest.TestCase):
         self.assertEqual(str(type(self.instance.updated_at)), strtst2)
 
     def test_save_isdtobj(self):
-        strtst2 = "<class 'datetime.datetime'>"
-        self.assertEqual(str(type(self.instance.save)), strtst2)
+        date = self.instance.updated_at.isoformat()
+        self.instance.save()
+        self.assertNotEqual(self.instance.updated_at.isoformat(), date)
