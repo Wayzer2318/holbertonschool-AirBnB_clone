@@ -1,20 +1,20 @@
 #!/usr/bin/python3
 """ test state """
 import unittest
-from models.state import State
+from models.amenity import Amenity
 
 
-class StateTest(unittest.TestCase):
+class AmenityTest(unittest.TestCase):
     """ test for state """
 
     def test_name_is_str(self):
-        instance = State()
+        instance = Amenity()
         self.assertEqual(instance.name, "")
 
     def test_instance(self):
-        instance = State()
-        self.assertIsInstance(instance, State)
+        instance = Amenity()
+        self.assertIsInstance(instance, Amenity)
 
     def test_id(self):
-        instance = State()
+        instance = Amenity()
         self.assertEqual(str, type(instance.id))
