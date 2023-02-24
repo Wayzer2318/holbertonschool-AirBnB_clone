@@ -50,8 +50,8 @@ class TestFileStorage(unittest.TestCase):
         self.my_storage.save()
         s = FileStorage()
         s.reload()
-        kx = s.__objects.keys()
-        ky = self.my_storage.__objects.keys()
+        kx = s.all().keys()
+        ky = self.my_storage.all().keys()
         self.assertTrue(kx, ky)
 
     def test_content_type(self):
