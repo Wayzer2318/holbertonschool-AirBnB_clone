@@ -1,15 +1,30 @@
 #!/usr/bin/python3
+""" test base model """
 import unittest
 import datetime
 from models.base_model import BaseModel
 
 
 class TestModelBase(unittest.TestCase):
+    """ test model base """
+
     def setUp(self):
         self.instance = BaseModel()
 
+    def test_to_dict(self):
+        v = self.instance.to_dict()
+        self.assertEqual(type(v), dict)
+
+        self.assertTrue('__class__' in v)
+        self.assertEqual(v['__class__'], self.instance.__class__.__name__)
+
     def test_id_is_str(self):
-        self.assertEqual(str(type(self.instance.id)), "<class 'str'>")
+        self.assertEqual(type(self.instance.id), str)
+
+        v = self.instance
+        x = str(self.instance)
+        y = '[{}] ({}) {}'.format(self.name, v.id, v.__dict__)
+        self.assertEqual(x, y)
 
     def test_created_is_dtobj(self):
         strtst = "<class 'datetime.datetime'>"
@@ -20,5 +35,6 @@ class TestModelBase(unittest.TestCase):
         self.assertEqual(str(type(self.instance.updated_at)), strtst2)
 
     def test_save_isdtobj(self):
-        strtst2 = "<class 'datetime.datetime'>"
-        self.assertEqual(str(type(self.instance.save)), strtst2)
+        date = self.instance.updated_at.isoformat()
+        self.instance.save()
+        self.assertNotEqual(self.instance.updated_at.isoformat(), date)

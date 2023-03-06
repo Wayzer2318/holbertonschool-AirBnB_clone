@@ -1,16 +1,14 @@
 #!/usr/bin/python3
-
+""" test """
 import unittest
 from models.user import User
 from models.base_model import BaseModel
 
 
 class userTest(unittest.TestCase):
+    """ Test cases for base_model class """
 
-
-""" Test cases for base_model class """
-
-   def setUp(self):
+    def setUp(self):
         """ simple set up """
         self.new_inst = User()
 

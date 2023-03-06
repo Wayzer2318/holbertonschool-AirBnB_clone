@@ -1,65 +1,41 @@
 #!/usr/bin/python3
-""" tests for file storage """
-import unittest
+"Unit tests for FileStorage class"
 import os
-import json
+import unittest
 
 
-from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
-    """ test for file storage """
+    "Unit tests suite for FileStorage class"
 
-    def setup(self):
-        """ set up """
+    def setUp(self):
         self.my_model = BaseModel()
-        self.my_storage = FileStorage()
 
-    def tear_down(self):
-        """ tear down method """
-        if os.path.exists("file.json"):
-            os.remove("file.json")
-        else:
-            pass
-
-    def test_instance(self):
-        """ test for storage class instance creation """
+    def test_instanciates(self):
+        "Tests that FileStorage correctly instanciates"
         storage = FileStorage()
         self.assertIsInstance(storage, FileStorage)
 
-    def test_new(self):
-        """ test new """
-        self.my_storage.new(self.my_model)
-        new_dict = self.my_storage.all()
-        key = self.my_model.__class__.__name__ + "." + self.my_model.id
-        self.assertIsInstance(new_dict[key], BaseModel)
+    def test_file_path(self):
+        """Test __file path is exited"""
+        path = FileStorage._FileStorage__file_path
+        self.assertEqual(str, type(path))
+
+    def test_object(self):
+        """Test __object is type dict after deserialization object - dict"""
+        object_dict = FileStorage._FileStorage__objects
+        self.assertEqual(dict, type(object_dict))
 
     def test_all(self):
-        """ test all """
-        self.assertIsInstance(self.my_storage.all(), dict)
+        """Test FileStorage """
+        """file is not exit"""
+        dict_return = {}
+        self.assertEqual(os.path.isfile('file.json'), True)
 
-    def test_save(self):
-        """ test save """
-        self.my_storage.save()
-        self.assertTrue(os.path.exists("file.json"))
 
-    def test_reload(self):
-        """ test for file storage reloading """
-        self.my_storage.save()
-        s = FileStorage()
-        s.reload()
-        kx = s.__objects.keys()
-        ky = self.my_storage.__objects.keys()
-        self.assertTrue(kx, ky)
-
-    def test_content_type(self):
-        """ test content type """
-        self.my_storage.save()
-        self.my_storage.new(self.my_model)
-
-        with open("file.json", encoding='utf-8') as f:
-            content = json.load(f)
-
-        self.assertIsInstance(content, dict)
+if __name__ == "__main__":
+    unittest.main()

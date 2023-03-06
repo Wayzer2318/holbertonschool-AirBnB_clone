@@ -5,7 +5,7 @@ import cmd
 import models
 
 
-from models.base_model import BaseMods
+from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -17,7 +17,15 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """ HBNB command class """
     prompt = '(hbnb) '
-    class_dict = {"BaseModel": BaseModel, "User": User}
+    class_dict = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Review": Review,
+    }
 
     def do_create(self, args):
         """ create instance """
