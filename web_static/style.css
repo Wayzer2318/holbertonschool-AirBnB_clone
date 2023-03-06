@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  height: 70px;
+  width: 100%;
+  background-color: #ff0000;
+}
+
+footer {
+  display: flex;
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  background-color: #00ff00;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+}
