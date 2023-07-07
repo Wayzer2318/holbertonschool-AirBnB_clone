@@ -1,8 +1,14 @@
 #!/usr/bin/python3
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 """
-class FileStorage
+class FileStorage 
 """
 
 
@@ -15,13 +21,13 @@ class FileStorage:
 
     def all(self):
         """
-        returns the dictionary 
+        returns the dictionary
         """
         return self.__objects
 
     def new(self, obj):
         """
-        new 
+        new
         """
         if obj:
             key = '{}.{}'.format(obj.__class__.__name__, obj.id)
@@ -42,6 +48,12 @@ class FileStorage:
         data_dict = {}
         classes = {
             "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
         }
         try:
             with open(self.__file_path, 'r') as f:

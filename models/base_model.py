@@ -10,7 +10,7 @@ class BaseModel:
     """
     def __init__(self, *args, **kwargs):
         """
-       BaseModel
+        baseModel
         """
         if kwargs:
             for k, v in kwargs.items():
@@ -34,14 +34,14 @@ class BaseModel:
 
     def save(self):
         """
-        Updates updated_at
+        Updates
         """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
         """
-        Return a dictionary 
+        Return a dictionary
         """
         dic = {}
         dic["__class__"] = self.__class__.__name__
