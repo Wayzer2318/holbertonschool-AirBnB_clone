@@ -1,50 +1,53 @@
-#!usr/bin/python3
-import uuid
+#!/usr/bin/python3
+from uuid import uuid4
 from datetime import datetime
 import models
 
 
 class BaseModel:
     """
-    base model class
+    Base class
     """
     def __init__(self, *args, **kwargs):
-        """ initialisaation  """
+        """
+       BaseModel
+        """
         if kwargs:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    timeval = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
-                    setattr(self, k, timeval)
+                    dtob = datetime.strptime(v,
+                                                  '%Y-%m-%dT%H:%M:%S.%f')
+                    setattr(self, k, dtob)
                 elif k != "__class__":
                     setattr(self, k, v)
         else:
-            self.id = str(uuid.uuid4())
+            self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
 
     def __str__(self):
         """
-        __str__
+        string representation
         """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """
-        save
+        Updates updated_at
         """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
         """
-        to dict
+        Return a dictionary 
         """
         dic = {}
         dic["__class__"] = self.__class__.__name__
-        for k, l in self.__dict__.items():
-            if isinstance(l, datetime):
-                dic[k] = l.isoformat()
+        for l, j in self.__dict__.items():
+            if isinstance(j, datetime):
+                dic[l] = j.isoformat()
             else:
-                dic[k] = l
+                dic[l] = j
         return dic
