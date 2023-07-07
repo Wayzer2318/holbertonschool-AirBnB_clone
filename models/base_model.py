@@ -15,8 +15,9 @@ class BaseModel():
                 if k != "__class__":
                     setattr(self, k, timeval)
         else:
-            id = str(uuid.uuid4())
-            self.created_at = self.updated_at = datetime.now()
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """
@@ -35,10 +36,10 @@ class BaseModel():
         to dict
         """
         dic = {}
-        dic[__class__] = self.__class__.__name__
-        for x, y in self.__dict__.items():
-            if isinsinstance(y, datetime):
-                dict[x] = y.isoformat()
+        dic["__class__"] = self.__class__.__name__
+        for k, l in self.__dict__.items():
+            if isinstance(l, datetime):
+                dic[k] = l.isoformat()
             else:
-                dict[x] = y
+                dic[k] = l
         return dic
