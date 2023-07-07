@@ -46,7 +46,7 @@ class BaseModel:
         dic["__class__"] = self.__class__.__name__
         for x, j in self.__dict__.items():
             if isinstance(j, datetime):
-                dic[l] = j.isoformat()
+                dic[x] = j.isoformat()
             else:
-                dic[l] = j
+                dic[x] = j
         return dic
