@@ -15,8 +15,7 @@ class BaseModel:
         if kwargs:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    dtob = datetime.strptime(v,
-                                                  '%Y-%m-%dT%H:%M:%S.%f')
+                    dtob = datetime.strptime(v, '%Y-%m-%dT%H:%M:%S.%f')
                     setattr(self, k, dtob)
                 elif k != "__class__":
                     setattr(self, k, v)
@@ -45,7 +44,7 @@ class BaseModel:
         """
         dic = {}
         dic["__class__"] = self.__class__.__name__
-        for l, j in self.__dict__.items():
+        for x, j in self.__dict__.items():
             if isinstance(j, datetime):
                 dic[l] = j.isoformat()
             else:

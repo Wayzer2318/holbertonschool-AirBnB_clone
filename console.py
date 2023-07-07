@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Creates a new instance 
+        Creates a new instance
         """
         if not line:
             print("** class name missing **")
@@ -61,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """
-        prints the string repr 
+        prints the string repr
         """
         if not line:
             print("** class name missing **")
@@ -89,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """
-        deletes 
+        deletes
         """
         if not line:
             print("** class name missing **")
