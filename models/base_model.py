@@ -13,7 +13,7 @@ class BaseModel:
         if kwargs:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    timeval = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    timeval = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, k, timeval)
                 elif k != "__class__":
                     setattr(self, k, v)
