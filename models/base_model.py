@@ -1,52 +1,53 @@
 #!/usr/bin/python3
-from uuid import uuid4
-from datetime import datetime
+""" base model """
+import uuid
+import datetime
+
+
 import models
 
 
 class BaseModel:
-    """
-    Base class
-    """
+    """ base model class """
+
     def __init__(self, *args, **kwargs):
-        """
-        baseModel
-        """
         if kwargs:
-            for k, v in kwargs.items():
-                if k == "created_at" or k == "updated_at":
-                    dtob = datetime.strptime(v, '%Y-%m-%dT%H:%M:%S.%f')
-                    setattr(self, k, dtob)
-                elif k != "__class__":
-                    setattr(self, k, v)
+            created_at = datetime.datetime.strptime(
+                kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+            updated_at = datetime.datetime.strptime(
+                kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+            kwargs["created_at"] = created_at
+            kwargs["updated_at"] = updated_at
+
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    setattr(self, key, value)
         else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
+
             models.storage.new(self)
 
     def __str__(self):
-        """
-        string representation
-        """
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+        r = [
+            '[%s]' % (self.__class__.__name__),
+            '(%s)' % (self.id),
+            '%s' % (self.__dict__),
+        ]
+
+        return ' '.join(r)
 
     def save(self):
-        """
-        Updates
-        """
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.datetime.now()
+
         models.storage.save()
 
     def to_dict(self):
-        """
-        Return a dictionary
-        """
-        dic = {}
-        dic["__class__"] = self.__class__.__name__
-        for x, j in self.__dict__.items():
-            if isinstance(j, datetime):
-                dic[x] = j.isoformat()
-            else:
-                dic[x] = j
-        return dic
+        new_dict = dict(self.__dict__)
+
+        new_dict["__class__"] = self.__class__.__name__
+        new_dict["created_at"] = self.created_at.isoformat()
+        new_dict["updated_at"] = self.updated_at.isoformat()
+
+        return new_dict
