@@ -1,64 +1,55 @@
 #!/usr/bin/python3
+""" engine storage """
 import json
+
+
 from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
-"""
-class FileStorage
-"""
 
 
-class FileStorage:
-    """
-    file storage class
-    """
+class FileStorage():
+    """ file storage class """
+
     __file_path = 'file.json'
     __objects = {}
 
     def all(self):
-        """
-        returns the dictionary
-        """
         return self.__objects
 
     def new(self, obj):
-        """
-        new
-        """
-        if obj:
-            key = '{}.{}'.format(obj.__class__.__name__, obj.id)
-            self.__objects[key] = obj
+        """ register new object """
+
+        k = ''
+
+        k += obj.__class__.__name__
+        k += '.'
+        k += obj.id
+
+        FileStorage.__objects[k] = obj
 
     def save(self):
-        """save"""
-        data = {}
-        for k, v in self.__objects.items():
-            data[k] = v.to_dict()
-        with open(self.__file_path, 'w') as f:
-            json.dump(data, f)
+        """ save all objects to fs """
+
+        data = {
+            k: v.to_dict()
+            for k, v in FileStorage.__objects.items()
+        }
+
+        p = FileStorage.__file_path
+        with open(p, 'w', encoding='utf-8') as file:
+            json.dump(data, file)
 
     def reload(self):
-        """
-       reload
-        """
-        data_dict = {}
-        classes = {
-            "BaseModel": BaseModel,
-            "User": User,
-            "State": State,
-            "City": City,
-            "Amenity": Amenity,
-            "Place": Place,
-            "Review": Review
-        }
+        """ reload all objects from fs """
+
+        p = FileStorage.__file_path
         try:
-            with open(self.__file_path, 'r') as f:
-                data_dict = json.load(f)
-                for k, v in data_dict.items():
-                    self.__objects[k] = classes[v["__class__"]](**v)
+            with open(p, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+
         except FileNotFoundError:
-            pass
+            return
+
+        FileStorage.__objects = {
+            k: globals()[k.split('.')[0]](**v)
+            for k, v in data.items()
+        }
