@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-""" user data model """
+"""This module defines a class User"""
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """ user data class """
+    """This class defines a user by various attributes"""
     email = ''
     password = ''
     first_name = ''

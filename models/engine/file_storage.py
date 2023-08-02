@@ -1,55 +1,50 @@
 #!/usr/bin/python3
-""" engine storage """
+"""This module defines a class to manage file storage for hbnb clone"""
 import json
 
 
-from models.base_model import BaseModel
-
-
-class FileStorage():
-    """ file storage class """
-
+class FileStorage:
+    """This class manages storage of hbnb models in JSON format"""
     __file_path = 'file.json'
     __objects = {}
 
     def all(self):
-        return self.__objects
+        """Returns a dictionary of models currently in storage"""
+        return FileStorage.__objects
 
     def new(self, obj):
-        """ register new object """
-
-        k = ''
-
-        k += obj.__class__.__name__
-        k += '.'
-        k += obj.id
-
-        FileStorage.__objects[k] = obj
+        """Adds new object to storage dictionary"""
+        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
 
     def save(self):
-        """ save all objects to fs """
-
-        data = {
-            k: v.to_dict()
-            for k, v in FileStorage.__objects.items()
-        }
-
-        p = FileStorage.__file_path
-        with open(p, 'w', encoding='utf-8') as file:
-            json.dump(data, file)
+        """Saves storage dictionary to file"""
+        with open(FileStorage.__file_path, 'w') as f:
+            temp = {}
+            temp.update(FileStorage.__objects)
+            for key, val in temp.items():
+                temp[key] = val.to_dict()
+            json.dump(temp, f)
 
     def reload(self):
-        """ reload all objects from fs """
+        """Loads storage dictionary from file"""
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
 
-        p = FileStorage.__file_path
+        classes = {
+                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                    'State': State, 'City': City, 'Amenity': Amenity,
+                    'Review': Review
+                  }
         try:
-            with open(p, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-
+            temp = {}
+            with open(FileStorage.__file_path, 'r') as f:
+                temp = json.load(f)
+                for key, val in temp.items():
+                        self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
-            return
-
-        FileStorage.__objects = {
-            k: globals()[k.split('.')[0]](**v)
-            for k, v in data.items()
-        }
+            pass
