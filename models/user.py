@@ -1,13 +1,11 @@
 #!/usr/bin/python3
+""" user data model """
 from models.base_model import BaseModel
-""" class User """
 
 
 class User(BaseModel):
-    """
-    Class User
-    """
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
+    """ user data class """
+    email = ''
+    password = ''
+    first_name = ''
+    last_name = ''
