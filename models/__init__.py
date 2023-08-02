@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-the init file for the models dir
-"""
+""" init """
 from models.engine.file_storage import FileStorage
 
 storage = FileStorage()
